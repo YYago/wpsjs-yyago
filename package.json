@@ -1,0 +1,29 @@
+{
+  "name": "wpsjs-yyago",
+  "version": "1.0.0",
+  "description": "wpsjs",
+  "main": "index.js",
+  "bin": {
+    "rwpsjs":"index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/YYago/wpsjs-yyago.git"
+  },
+  "keywords": [
+    "wpsjs",
+    "wps"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YYago/wpsjs-yyago/issues"
+  },
+  "homepage": "https://github.com/YYago/wpsjs-yyago#readme",
+  "dependencies": {
+    "wpsjs": "^1.4.12"
+  }
+}
