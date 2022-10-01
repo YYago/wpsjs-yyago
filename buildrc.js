@@ -4,7 +4,7 @@ const fsEx = require('fs-extra')
 const path = require('path')
 var builder = require('xmlbuilder')
 const _7z = require('7zip-min')
-const jsUtil = require('wps/src/util')
+const jsUtil = require('wpsjs/src/lib/util')
 let projectCfg = jsUtil.projectCfg()
 const chalk = require('chalk')
 
@@ -31,6 +31,7 @@ async function build() {
 }
 */
 async function buildWithArgs(answers) {
+    //console.debug(JSON.stringify(answers))
     let buildDirectory = answers.buildDir || jsUtil.GetBuildDir()
     let excludeFiles = answers.excludeFiles;
     let debugTemp = jsUtil.GetDebugTempPath(true)
@@ -46,7 +47,7 @@ async function buildWithArgs(answers) {
             buildDir = require('wps/src/buildreact')(answers)
         }
     }
-    let publishRoot = path.resolve(curDir, jsUtil.GetPublishDir())
+    let publishRoot = path.resolve(curDir, answers.publishDir||jsUtil.GetPublishDir())
     fsEx.removeSync(publishRoot)
     let buildRoot = path.resolve(curDir, buildDirectory)
     let distPath = buildRoot
@@ -71,7 +72,7 @@ async function buildWithArgs(answers) {
         }
     })
 
-    console.log(chalk.cyan(`\n==>>  编译成功。请将目录${buildDirectory}下的文件署到服务器...`))
+    console.log(chalk.cyan(`\n==>>  编译成功。请将目录 ${buildDirectory} 下的文件署到服务器...`))
 }
 
 module.exports = {

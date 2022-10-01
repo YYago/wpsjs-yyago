@@ -6,7 +6,7 @@ let iconfigs = package.iConfigs;
 let url = package.iConfigs.serverUrl || undefined
 
 function publishOption() {
-    let addonUrl = package.iConfigs.pluginType == "offline" ? `${url}${package.name}_${package.version}.7z` : `${url}`
+    let addonUrl = package.iConfigs.pluginType == "offline" ? `${url}${package.name}.7z` : `${url}`
     let addonTypes = iconfigs.addonType || package.addonType;
     let addonName = package.name
     let online = iconfigs.pluginType == "offline" ? 'false' : 'true'

@@ -51,9 +51,9 @@ npm install --global wpsjs-yyago
 > 1. **`pluginType`**：是离线还是在线插件（加载项）？ "`offline`"：离线，"`online`"：在线。
 > 2. **`serverUrl`**：发布 URL 地址，必须以“/”结尾。
 > 3. **`addonType`**：安装到哪些应用上？仅限从 `wps`、 `wpsp`、`et` 中选一个或多个，如果插件可安装多个应用上，则写多个。比如示例中的写法表示插件可以安装到文字、表格、演示文档三个应用上。*注意：它们使用同一个插件源文件，而不是打包成 3 个独立文件！！！* 这个配置仅对发布（生成 `publish.html`）有效。
-> 4. **`buildDir`**: 打包存放目录，默认是 “wps-addon-build”。
-> 5. **`publishDir`**: 发布文件存放目录，默认是 “wps-addon-publish”。
-> 6. **`excludeFiles`**: 打包时要排除的文件（不要的文件）。
+> 4. **`buildDir`**: 打包后的文件存放目录，默认是 “wps-addon-build”。
+> 5. **`publishDir`**: 发布文件（`publish.html`文件,相当于安装器）存放目录，默认是 “wps-addon-publish”。
+> 6. **`excludeFiles`**: 打包时要排除的文件（不打包的文件）。
 
 如果你懒得复制，可以通过命令更改 `package.json` 文件：
 
@@ -64,7 +64,7 @@ npm install --global wpsjs-yyago
 或者
 
 ```sh
-  node node_modules/wpsjs-yyago config
+  node node_modules/wpsjs-yyago/index config
 ```
 
 ## 使用
@@ -73,34 +73,45 @@ npm install --global wpsjs-yyago
 
 ```json
 "scripts": {
-    "b": "node node_modules/wpsjs-yyago build",
-    "p": "node node_modules/wpsjs-yyago publish"
+    "b": "node node_modules/wpsjs-yyago/index build",
+    "p": "node node_modules/wpsjs-yyago/index publish",
+    "c": "node node_modules/wpsjs-yyago/index config"
   }
 ```
 
 然后通过 "`npm run b`" , "`npm run p`" 进行打包和分发操作。如果没有这样做，则可以：
 
 1. 打包
-    ```
-    node node_modules/wpsjs-yyago build
+    ```sh
+    node node_modules/wpsjs-yyago/index build
 
     # global
 
     rwpsjs build
     ```
+
 2. 发布
-    ```
-    node node_modules/wpsjs-yyago publish
+    ```sh
+    node node_modules/wpsjs-yyago/index publish
 
     # global
 
     rwpsjs publish
     ```
 
+3. 添加配置
+    ```sh
+    node node_modules/wpsjs-yyago/index config
+
+    # global
+
+    rwpsjs config
+    ```
+
 ### 可引用模块
 
 ```js
-const addonList = require('wpsjs-yyago/build.js').publishOpstions
+const addonList = require('wpsjs-yyago/publish').publishOpstions
 ```
 
 其结果结构为(示例)：
@@ -111,8 +122,13 @@ const addonList = require('wpsjs-yyago/build.js').publishOpstions
         "name":"wpsjs-yyago",
         "addonType":"wps",
         "online":"false",
-        "url":"https://www.pwedu.top/wpsAddons/wpsjs-yyago_1.0.0.7z"
+        "url":"https://www.pwedu.top/wpsAddons/wpsjs-yyago.7z"
     },
     ...
 ]
 ```
+
+## TODO
+
+* [ ] 用 Vue、React 两种框架开发的加载项项目未做更改和测试。
+* [ ] 如果要自己写安装器文件（publish.html）,可以引入 `require('wpsjs-yyago/publish').publishOpstions` 的结果作为安装参数。

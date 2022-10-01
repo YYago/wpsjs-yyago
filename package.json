@@ -1,10 +1,10 @@
 {
   "name": "wpsjs-yyago",
-  "version": "1.0.0",
+  "version": "1.0.9",
   "description": "wpsjs",
   "main": "index.js",
   "bin": {
-    "rwpsjs":"index.js"
+    "rwpsjs": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

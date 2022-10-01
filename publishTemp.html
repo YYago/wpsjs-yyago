@@ -42,6 +42,7 @@
         <div id="addons">
 
         </div>
+        <div id="log"></div>
     </div>
     <!--介绍-->
     <script>
@@ -1543,23 +1544,38 @@
                 <div>${item.addonType == "wps" ? '文字' : item.addonType == "et" ? "表格" : '演示文档'}</div>
                 <div>${item.version}</div>
                 <div><button onclick="addonEnable(${i})">安 装</button></div>
+                <div><button onclick="toJSONstringify(${i})">复制为 JSON</div>
                 </div>
                 `
                 $('#addons').append(itemCode)
             }
+            $('#addons').append('<textarea id="copyIt" ></textarea>')
         }
 
     </script>
     <script>
+        function log(str){
+            document.querySelector('#log').textContent = `${str} At: ${new Date().toLocaleTimeString()}`
+        }
         function addonEnable(index) {
             let addonItem = addons[index]
             WpsAddonMgr.enable(addonItem, e => {
                 if (e.status) {
-                    alert(JSON.stringify(e))
+                    log(`错误：${JSON.stringify(e)}`)
                 } else {
-                    alert("安装成功！重启 WPS Office 客户端后可用")
+                    log(`安装成功！重启 WPS Office 客户端后可用.`)
                 }
             })
+        }
+        function toJSONstringify(index) {
+            let objectString = JSON.stringify(addons[index]);
+            let v = document.querySelector('textarea#copyIt')
+            v.textContent = objectString
+            v.select()
+            let r = document.execCommand('copy')
+            if(r){
+                log('复制成功')
+            }
         }
     </script>
 
