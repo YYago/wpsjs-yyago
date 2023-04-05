@@ -1,7 +1,7 @@
 {
   "name": "wpsjs-yyago",
-  "version": "1.0.9",
-  "description": "wpsjs",
+  "version": "1.0.10",
+  "description": "WPS Office JavaScript Plugin build and publish",
   "main": "index.js",
   "bin": {
     "rwpsjs": "index.js"
@@ -15,7 +15,9 @@
   },
   "keywords": [
     "wpsjs",
-    "wps"
+    "wps",
+    "wps office",
+    "wps plugin"
   ],
   "author": "",
   "license": "ISC",

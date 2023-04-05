@@ -16,8 +16,8 @@ const confs = {
 
 if(!pack.iConfigs){
     const foo = Object.assign(pack, confs)
-    writeFileSync(packPath, JSON.stringify(foo))
+    writeFileSync(packPath, JSON.stringify(foo,null,4))
     console.log(`   完成!`)
 }else{
-    console.log(`   貌似已经配置了:\n${JSON.stringify(pack.iConfigs)}`)
+    console.log(`   貌似已经配置过了:\n${JSON.stringify(pack.iConfigs,null,4)}`)
 }

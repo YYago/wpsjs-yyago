@@ -1,11 +1,13 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<!--
+    By <wpsjs-yyago>[https://www.npmjs.com/package/wpsjs-yyago];
+-->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{%name%} 插件/加载项安装</title>
-    <!--<script src="sdk.js"></script>-->
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.slim.min.js"></script>
-
     <style>
         .content {
             padding: 2em;
@@ -28,13 +30,28 @@
             justify-content: space-around;
             border-bottom: 1px solid;
         }
+        .addon_item div,
+        .theader div{
+            padding: .5em;
+            width: 20%;
+            text-align: center;
+        }
+        .addon_item:hover{
+            background-color: black;
+            color:white;
+        }
+        textarea{
+            margin-top: 1em;
+            width: 99.5%;
+            height: 100%;
+        }
     </style>
 </head>
 
 <body>
-    <div style="width: 80%;margin: 0 auto; padding: 0;">
-        <h1 id="addonname" style="text-align: center;"></h1>
+    <div style="width: 90%;margin: 0 auto; padding: 0;">
         <div class="theader" style="font-weight: bolder; color: aliceblue;background-color: black;font-size: larger;">
+            <div>插件名称</div>
             <div>适配应用</div>
             <div>版本</div>
             <div>操作</div>
@@ -1533,28 +1550,20 @@
     </script>
     <script>
         //{%vars%}
-        // Mac 不可用
         if (/Mac/.test(window.navigator.appVersion)) {
-            $('#addons').text("⚠️ macOS 不支持")
+            document.querySelector('#addons').textContent = "⚠️ WPS Office For macOS 不支持 JavaScript Plugin";
         } else {
-            $('#addonname').text(addons[0].name)
-            for (let i = 0; i < addons.length; i++) {
-                let item = addons[i]
-                let itemCode = `<div class="addon_item">
-                <div>${item.addonType == "wps" ? '文字' : item.addonType == "et" ? "表格" : '演示文档'}</div>
-                <div>${item.version}</div>
-                <div><button onclick="addonEnable(${i})">安 装</button></div>
-                <div><button onclick="toJSONstringify(${i})">复制为 JSON</div>
-                </div>
-                `
-                $('#addons').append(itemCode)
-            }
-            $('#addons').append('<textarea id="copyIt" ></textarea>')
+            let itemCodes = addons.map((o,i)=>`<div class="addon_item"><div>${o.name}</div><div>${o.addonType == "wps" ? '文字' : o.addonType == "et" ? "表格" : '演示文档'}</div><div>${o.version}</div><div><button onclick="addonEnable(${i})">安 装</button><button onclick="toJSONstringify(${i})">复制为 JSON</div></div>`).join("")
+            document.querySelector('#addons').innerHTML = itemCodes;
+            let txtArea =document.createElement('textarea')
+            txtArea.rows = 7;
+            txtArea.id = "copyIt";
+            document.querySelector('#addons').after(txtArea);
         }
 
     </script>
     <script>
-        function log(str){
+        function log(str) {
             document.querySelector('#log').textContent = `${str} At: ${new Date().toLocaleTimeString()}`
         }
         function addonEnable(index) {
@@ -1568,17 +1577,17 @@
             })
         }
         function toJSONstringify(index) {
-            let objectString = JSON.stringify(addons[index]);
+            let objectString = JSON.stringify(addons[index], null, 4);
             let v = document.querySelector('textarea#copyIt')
+            v.textContent = "";
             v.textContent = objectString
             v.select()
             let r = document.execCommand('copy')
-            if(r){
+            if (r) {
                 log('复制成功')
             }
         }
     </script>
-
 </body>
 
 </html>
